@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robinhood Chain Study Guide — Block Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== Chapter 1 styles ===== */
+
+  :root{
+    --navy-deep:#060810;
+    --navy:#0A0E1A;
+    --navy-panel:#101526;
+    --navy-line:#1E2438;
+    --gold:#D4AF37;
+    --gold-dim:#8A7328;
+    --off-white:#ECE9DF;
+    --muted:#8B92A5;
+    --green:#3FBF7F;
+    --red:#C9564A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--navy);
+    color:var(--off-white);
+    font-family:'Barlow',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.02em;
+    font-weight:400;
+    color:var(--off-white);
+  }
+  .mono{
+    font-family:'DM Mono',monospace;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  /* ===== Header ===== */
+  header.top{
+    border-bottom:1px solid var(--navy-line);
+    padding:22px 0;
+    background:var(--navy-deep);
+  }
+  .top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .brand{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20px;
+    letter-spacing:0.12em;
+    color:var(--gold);
+  }
+  .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+  .course-tag{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+  }
+  /* ===== Hero ===== */
+  .hero{
+    padding:64px 0 40px;
+    text-align:center;
+    border-bottom:1px solid var(--navy-line);
+  }
+  .eyebrow{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:56px;
+    margin:14px 0 6px;
+    line-height:0.95;
+  }
+  .hero p.sub{
+    color:var(--muted);
+    max-width:560px;
+    margin:14px auto 0;
+    font-size:17px;
+  }
+  /* ===== Signature: market status board ===== */
+  .board{
+    margin:44px auto 0;
+    max-width:640px;
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .board-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 26px;
+  }
+  .board-row + .board-row{border-top:1px solid var(--navy-line);}
+  .board-label{
+    text-align:left;
+  }
+  .board-label .name{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:22px;
+    letter-spacing:0.03em;
+  }
+  .board-label .desc{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .board-status{
+    font-family:'DM Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.08em;
+    padding:6px 14px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .status-closed{background:rgba(201,86,74,0.12);color:var(--red);border:1px solid rgba(201,86,74,0.3);}
+  .status-open{background:rgba(63,191,127,0.12);color:var(--green);border:1px solid rgba(63,191,127,0.3);}
+  .board-foot{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    padding:14px 26px;
+    background:var(--navy-deep);
+    text-align:left;
+  }
+  /* ===== Sections ===== */
+  section.block{
+    padding:56px 0;
+    border-bottom:1px solid var(--navy-line);
+  }
+  section.block:last-of-type{border-bottom:none;}
+  .kicker{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  h2{font-size:34px;margin:0 0 20px;}
+  p{margin:0 0 16px;color:var(--off-white);}
+  p.lead{font-size:18px;color:var(--off-white);}
+  .callout{
+    background:var(--navy-panel);
+    border-left:3px solid var(--gold);
+    padding:18px 22px;
+    border-radius:2px;
+    margin:24px 0;
+  }
+  .callout .tag{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .callout p{margin:0;color:var(--muted);font-size:15px;}
+  /* stat pair */
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin:28px 0;
+  }
+  .compare .card{
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:4px;
+    padding:22px;
+  }
+  .compare .card h3{
+    font-size:20px;
+    margin:0 0 10px;
+  }
+  .compare .card.old h3{color:var(--muted);}
+  .compare .card.new h3{color:var(--gold);}
+  .compare .card ul{
+    margin:0;
+    padding-left:18px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .compare .card ul li{margin-bottom:8px;}
+  @media (max-width:600px){
+    .compare{grid-template-columns:1fr;}
+    .hero h1{font-size:38px;}
+  }
+  /* stack list for build rationale */
+  .stack{
+    margin:24px 0;
+  }
+  .stack-item{
+    display:flex;
+    gap:18px;
+    padding:18px 0;
+    border-top:1px solid var(--navy-line);
+  }
+  .stack-item:last-child{border-bottom:1px solid var(--navy-line);}
+  .stack-item .k{
+    font-family:'DM Mono',monospace;
+    color:var(--gold);
+    font-size:13px;
+    min-width:96px;
+    padding-top:2px;
+  }
+  .stack-item .v h3{font-size:19px;margin:0 0 6px;}
+  .stack-item .v p{font-size:14.5px;color:var(--muted);margin:0;}
+  /* wallets */
+  .wallet-flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin:32px 0 10px;
+  }
+  .wallet-box{
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:4px;
+    padding:20px 24px;
+    text-align:center;
+    min-width:180px;
+  }
+  .wallet-box .name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.03em;color:var(--off-white);}
+  .wallet-box .role{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;}
+  .wallet-arrow{
+    font-family:'DM Mono',monospace;
+    color:var(--gold);
+    font-size:20px;
+  }
+  .arrow-caption{
+    text-align:center;
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .seed-note{
+    background:rgba(201,86,74,0.08);
+    border:1px solid rgba(201,86,74,0.3);
+    border-radius:4px;
+    padding:16px 20px;
+    margin-top:24px;
+  }
+  .seed-note .tag{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .seed-note p{margin:0;font-size:14.5px;color:var(--off-white);}
+  /* footer nav */
+  footer.nav{
+    padding:36px 0 60px;
+  }
+  .next-up{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:4px;
+    padding:20px 26px;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .next-up .l1{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  .next-up .l2{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-top:4px;}
+  .badge{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    border:1px solid var(--gold-dim);
+    padding:6px 12px;
+    border-radius:20px;
+  }
+
+
+/* ===== Chapter 2 styles ===== */
+
+  :root{
+    --navy-deep:#060810;
+    --navy:#0A0E1A;
+    --navy-panel:#101526;
+    --navy-line:#1E2438;
+    --gold:#D4AF37;
+    --gold-dim:#8A7328;
+    --off-white:#ECE9DF;
+    --muted:#8B92A5;
+    --green:#3FBF7F;
+    --red:#C9564A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--navy);
+    color:var(--off-white);
+    font-family:'Barlow',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.02em;
+    font-weight:400;
+    color:var(--off-white);
+  }
+  .mono{font-family:'DM Mono',monospace;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+
+  header.top{
+    border-bottom:1px solid var(--navy-line);
+    padding:22px 0;
+    background:var(--navy-deep);
+  }
+  .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.12em;color:var(--gold);}
+  .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+  .course-tag{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.05em;}
+
+  /* recap strip */
+  .recap{
+    background:var(--navy-panel);
+    border-bottom:1px solid var(--navy-line);
+    padding:14px 0;
+  }
+  .recap .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .recap .tag{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .recap p{margin:0;font-size:14px;color:var(--muted);}
+
+  .hero{
+    padding:60px 0 40px;
+    text-align:center;
+    border-bottom:1px solid var(--navy-line);
+  }
+  .eyebrow{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  .hero h1{font-size:52px;margin:14px 0 6px;line-height:0.95;}
+  .hero p.sub{color:var(--muted);max-width:560px;margin:14px auto 0;font-size:17px;}
+
+  section.block{padding:56px 0;border-bottom:1px solid var(--navy-line);}
+  section.block:last-of-type{border-bottom:none;}
+  .kicker{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  h2{font-size:34px;margin:0 0 20px;}
+  p{margin:0 0 16px;color:var(--off-white);}
+  p.lead{font-size:18px;}
+  .callout{
+    background:var(--navy-panel);
+    border-left:3px solid var(--gold);
+    padding:18px 22px;
+    border-radius:2px;
+    margin:24px 0;
+  }
+  .callout .tag{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .callout p{margin:0;color:var(--muted);font-size:15px;}
+
+  /* rabby setup steps */
+  .setup-steps{margin:28px 0;}
+  .setup-step{
+    display:flex;
+    gap:18px;
+    padding:18px 0;
+    border-top:1px solid var(--navy-line);
+  }
+  .setup-step:last-child{border-bottom:1px solid var(--navy-line);}
+  .setup-step .k{
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--gold);
+    font-size:26px;
+    min-width:36px;
+  }
+  .setup-step .v h3{font-size:19px;margin:0 0 6px;}
+  .setup-step .v p{font-size:14.5px;color:var(--muted);margin:0;}
+
+  .seed-note{
+    background:rgba(201,86,74,0.08);
+    border:1px solid rgba(201,86,74,0.3);
+    border-radius:4px;
+    padding:16px 20px;
+    margin-top:24px;
+  }
+  .seed-note .tag{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .seed-note p{margin:0;font-size:14.5px;color:var(--off-white);}
+
+  /* permissionless compare */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+  .compare .card{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:22px;}
+  .compare .card h3{font-size:20px;margin:0 0 10px;}
+  .compare .card.old h3{color:var(--muted);}
+  .compare .card.new h3{color:var(--gold);}
+  .compare .card ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);}
+  .compare .card ul li{margin-bottom:8px;}
+  @media (max-width:600px){.compare{grid-template-columns:1fr;}.hero h1{font-size:38px;}}
+
+  /* live moment widget */
+  .moment{
+    margin:30px auto 0;
+    max-width:640px;
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:4px;
+    overflow:hidden;
+    text-align:left;
+  }
+  .moment-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 24px;background:var(--navy-deep);border-bottom:1px solid var(--navy-line);
+  }
+  .moment-head .l{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  .moment-head .r{font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);}
+  .moment-body{padding:22px 24px;}
+  .moment-body .line{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;border-top:1px solid var(--navy-line);
+    font-family:'DM Mono',monospace;font-size:13px;
+  }
+  .moment-body .line:first-child{border-top:none;}
+  .moment-body .line .label{color:var(--muted);}
+  .moment-body .line .val{color:var(--green);}
+
+  /* connected diagram */
+  .connect-flow{
+    display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:32px 0 10px;
+  }
+  .connect-box{
+    background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;
+    padding:20px 24px;text-align:center;min-width:170px;
+  }
+  .connect-box .name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.03em;}
+  .connect-box .role{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;}
+  .connect-arrow{font-family:'DM Mono',monospace;color:var(--gold);font-size:20px;}
+  .connect-caption{text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:10px;}
+
+  /* recap box + teaser */
+  .recap-box{
+    background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;
+    padding:22px 24px;margin-bottom:18px;
+  }
+  .recap-box .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+  .recap-box ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--off-white);}
+  .recap-box ul li{margin-bottom:8px;}
+
+  footer.nav{padding:36px 0 60px;}
+  .next-up{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;
+    padding:20px 26px;flex-wrap:wrap;gap:10px;
+  }
+  .next-up .l1{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  .next-up .l2{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-top:4px;}
+  .badge{
+    font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);
+    border:1px solid var(--gold-dim);padding:6px 12px;border-radius:20px;
+  }
+
+
+/* ===== Chapter 3 styles ===== */
+
+  :root{
+    --navy-deep:#060810;
+    --navy:#0A0E1A;
+    --navy-panel:#101526;
+    --navy-line:#1E2438;
+    --gold:#D4AF37;
+    --gold-dim:#8A7328;
+    --off-white:#ECE9DF;
+    --muted:#8B92A5;
+    --green:#3FBF7F;
+    --red:#C9564A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--navy);color:var(--off-white);font-family:'Barlow',sans-serif;line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em;font-weight:400;color:var(--off-white);}
+  .mono{font-family:'DM Mono',monospace;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+
+  header.top{border-bottom:1px solid var(--navy-line);padding:22px 0;background:var(--navy-deep);}
+  .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.12em;color:var(--gold);}
+  .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+  .course-tag{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.05em;}
+
+  .recap{background:var(--navy-panel);border-bottom:1px solid var(--navy-line);padding:14px 0;}
+  .recap .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .recap .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
+  .recap p{margin:0;font-size:14px;color:var(--muted);}
+
+  .hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--navy-line);}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;}
+  .hero h1{font-size:52px;margin:14px 0 6px;line-height:0.95;}
+  .hero p.sub{color:var(--muted);max-width:580px;margin:14px auto 0;font-size:17px;}
+
+  section.block{padding:56px 0;border-bottom:1px solid var(--navy-line);}
+  section.block:last-of-type{border-bottom:none;}
+  .kicker{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  h2{font-size:34px;margin:0 0 20px;}
+  p{margin:0 0 16px;color:var(--off-white);}
+  p.lead{font-size:18px;}
+  .callout{background:var(--navy-panel);border-left:3px solid var(--gold);padding:18px 22px;border-radius:2px;margin:24px 0;}
+  .callout .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+  .callout p{margin:0;color:var(--muted);font-size:15px;}
+  .callout.warn{border-left-color:var(--red);}
+  .callout.warn .tag{color:var(--red);}
+
+  /* backing chain diagram */
+  .backing{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:30px 0 8px;}
+  .backing-box{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:16px 18px;text-align:center;min-width:130px;}
+  .backing-box .name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.02em;}
+  .backing-box .role{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:4px;}
+  .backing-arrow{font-family:'DM Mono',monospace;color:var(--gold);font-size:18px;}
+  .backing-caption{text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:10px;}
+
+  /* own vs don't own */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+  .compare .card{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:22px;}
+  .compare .card h3{font-size:20px;margin:0 0 10px;}
+  .compare .card.yes h3{color:var(--green);}
+  .compare .card.no h3{color:var(--red);}
+  .compare .card ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);}
+  .compare .card ul li{margin-bottom:8px;}
+  @media (max-width:600px){.compare{grid-template-columns:1fr;}.hero h1{font-size:38px;}}
+
+  /* trading venues */
+  .venues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+  .venue-card{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:20px 22px;}
+  .venue-card .name{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);}
+  .venue-card p{font-size:14px;color:var(--muted);margin:8px 0 0;}
+  @media (max-width:600px){.venues{grid-template-columns:1fr;}}
+
+  /* risk grid */
+  .risk-list{margin:28px 0;}
+  .risk-item{display:flex;gap:18px;padding:16px 0;border-top:1px solid var(--navy-line);}
+  .risk-item:last-child{border-bottom:1px solid var(--navy-line);}
+  .risk-item .k{font-family:'DM Mono',monospace;color:var(--red);font-size:12px;min-width:110px;padding-top:2px;}
+  .risk-item .v h3{font-size:18px;margin:0 0 4px;}
+  .risk-item .v p{font-size:14px;color:var(--muted);margin:0;}
+
+  /* example card */
+  .example-card{
+    background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;
+    padding:26px 26px;margin:28px 0;
+  }
+  .example-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  .example-head .name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);}
+  .example-head .type{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);border:1px solid var(--navy-line);padding:5px 10px;border-radius:20px;}
+  .example-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--navy-line);font-family:'DM Mono',monospace;font-size:13px;}
+  .example-row:first-of-type{border-top:none;}
+  .example-row .label{color:var(--muted);}
+  .example-row .val{color:var(--off-white);}
+
+  .recap-box{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:22px 24px;margin-bottom:18px;}
+  .recap-box .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+  .recap-box ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--off-white);}
+  .recap-box ul li{margin-bottom:8px;}
+
+  footer.nav{padding:36px 0 60px;}
+  .next-up{display:flex;justify-content:space-between;align-items:center;background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:20px 26px;flex-wrap:wrap;gap:10px;}
+  .next-up .l1{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  .next-up .l2{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-top:4px;}
+  .badge{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);border:1px solid var(--gold-dim);padding:6px 12px;border-radius:20px;}
+
+
+/* ===== Chapter 4 styles ===== */
+
+  :root{
+    --navy-deep:#060810;
+    --navy:#0A0E1A;
+    --navy-panel:#101526;
+    --navy-line:#1E2438;
+    --gold:#D4AF37;
+    --gold-dim:#8A7328;
+    --off-white:#ECE9DF;
+    --muted:#8B92A5;
+    --green:#3FBF7F;
+    --red:#C9564A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--navy);color:var(--off-white);font-family:'Barlow',sans-serif;line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em;font-weight:400;color:var(--off-white);}
+  .mono{font-family:'DM Mono',monospace;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px;}
+
+  header.top{border-bottom:1px solid var(--navy-line);padding:22px 0;background:var(--navy-deep);position:sticky;top:0;z-index:10;}
+  .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.12em;color:var(--gold);}
+  .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+  .course-tag{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.05em;}
+
+  .module-nav{background:var(--navy-panel);border-bottom:1px solid var(--navy-line);padding:12px 0;overflow-x:auto;}
+  .module-nav .wrap{display:flex;gap:8px;flex-wrap:nowrap;}
+  .module-pill{
+    font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);
+    border:1px solid var(--navy-line);padding:6px 12px;border-radius:20px;white-space:nowrap;
+  }
+
+  .recap{background:var(--navy-panel);border-bottom:1px solid var(--navy-line);padding:14px 0;}
+  .recap .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .recap .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
+  .recap p{margin:0;font-size:14px;color:var(--muted);}
+
+  .hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--navy-line);}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;}
+  .hero h1{font-size:52px;margin:14px 0 6px;line-height:0.95;}
+  .hero p.sub{color:var(--muted);max-width:600px;margin:14px auto 0;font-size:17px;}
+  .hero .meta{
+    display:flex;justify-content:center;gap:22px;margin-top:24px;flex-wrap:wrap;
+    font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);
+  }
+  .hero .meta span{color:var(--gold);}
+
+  section.block{padding:56px 0;border-bottom:1px solid var(--navy-line);}
+  section.block:last-of-type{border-bottom:none;}
+  .module-tag{
+    font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.1em;
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  .kicker{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  h2{font-size:34px;margin:0 0 8px;}
+  h2 + .sub-lead{color:var(--muted);font-size:15px;margin:0 0 20px;}
+  h3.mini{font-size:22px;margin:26px 0 10px;color:var(--gold);}
+  p{margin:0 0 16px;color:var(--off-white);}
+  p.lead{font-size:18px;}
+  .callout{background:var(--navy-panel);border-left:3px solid var(--gold);padding:18px 22px;border-radius:2px;margin:24px 0;}
+  .callout .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+  .callout p{margin:0;color:var(--muted);font-size:15px;}
+  .callout.warn{border-left-color:var(--red);}
+  .callout.warn .tag{color:var(--red);}
+  .callout.green{border-left-color:var(--green);}
+  .callout.green .tag{color:var(--green);}
+
+  .eco-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+  .eco-card{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:20px 22px;}
+  .eco-card .name{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);}
+  .eco-card .role{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;margin:4px 0 10px;}
+  .eco-card p{font-size:14px;color:var(--muted);margin:0;}
+  @media (max-width:600px){.eco-grid{grid-template-columns:1fr;}.hero h1{font-size:36px;}}
+
+  .data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;}
+  .data-table th{
+    font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;
+    letter-spacing:0.05em;text-align:left;padding:10px 12px;border-bottom:1px solid var(--navy-line);
+  }
+  .data-table td{padding:10px 12px;border-bottom:1px solid var(--navy-line);color:var(--off-white);}
+  .data-table tr:last-child td{border-bottom:none;}
+  .data-table .g{color:var(--gold);font-family:'DM Mono',monospace;}
+
+  .cycle{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:26px 0;}
+  .cycle-box{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:14px 18px;text-align:center;min-width:120px;}
+  .cycle-box .n{font-family:'Bebas Neue',sans-serif;font-size:18px;}
+  .cycle-box .s{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;}
+  .cycle-arrow{font-family:'DM Mono',monospace;color:var(--gold);font-size:16px;}
+
+  .flow{margin:32px 0 10px;background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:28px 26px;}
+  .flow-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .flow-box{background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:4px;padding:16px 20px;text-align:center;min-width:140px;}
+  .flow-box.highlight{border-color:var(--gold);}
+  .flow-box .name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:0.02em;}
+  .flow-box .sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px;}
+  .flow-arrow{font-family:'DM Mono',monospace;color:var(--gold);font-size:18px;}
+  .flow-split{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:center;margin-top:10px;}
+  .flow-split .pct{color:var(--gold);}
+
+  .split-bar{display:flex;height:36px;border-radius:4px;overflow:hidden;margin:18px 0 8px;border:1px solid var(--navy-line);}
+  .split-bar .seg{display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;text-align:center;padding:0 6px;}
+  .split-bar .a{background:rgba(212,175,55,0.25);color:var(--gold);width:75%;}
+  .split-bar .b{background:rgba(139,146,165,0.2);color:var(--muted);width:25%;}
+
+  .pons-flow{margin:24px 0;}
+  .pons-step{display:flex;gap:18px;padding:16px 0;border-top:1px solid var(--navy-line);}
+  .pons-step:last-child{border-bottom:1px solid var(--navy-line);}
+  .pons-step .k{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:24px;min-width:34px;}
+  .pons-step .v h3{font-size:18px;margin:0 0 4px;}
+  .pons-step .v p{font-size:14px;color:var(--muted);margin:0;}
+
+  .calc{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:24px 26px;margin:26px 0;}
+  .calc-head{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
+  .calc-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+  .calc-row label{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted);}
+  .calc-row input[type=range]{flex:1;min-width:160px;accent-color:var(--gold);}
+  .calc-val{font-family:'DM Mono',monospace;color:var(--gold);font-size:13px;min-width:70px;text-align:right;}
+  .calc-out{border-top:1px solid var(--navy-line);margin-top:14px;padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .calc-out .item .l{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;}
+  .calc-out .item .v{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--off-white);margin-top:2px;}
+  .calc-out .item .v.gold{color:var(--gold);}
+  @media (max-width:600px){.calc-out{grid-template-columns:1fr;}}
+
+  .risk-list{margin:24px 0;}
+  .risk-item{display:flex;gap:18px;padding:16px 0;border-top:1px solid var(--navy-line);}
+  .risk-item:last-child{border-bottom:1px solid var(--navy-line);}
+  .risk-item .k{font-family:'DM Mono',monospace;color:var(--red);font-size:12px;min-width:120px;padding-top:2px;}
+  .risk-item .v h3{font-size:18px;margin:0 0 4px;}
+  .risk-item .v p{font-size:14px;color:var(--muted);margin:0;}
+
+  .glossary{margin:24px 0;}
+  .g-item{display:flex;gap:18px;padding:14px 0;border-top:1px solid var(--navy-line);}
+  .g-item:last-child{border-bottom:1px solid var(--navy-line);}
+  .g-item .term{font-family:'DM Mono',monospace;color:var(--gold);font-size:13px;min-width:120px;}
+  .g-item .def{font-size:14px;color:var(--muted);}
+
+  .quiz{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:26px;margin:24px 0;}
+  .quiz-q{margin-bottom:26px;}
+  .quiz-q:last-child{margin-bottom:0;}
+  .quiz-q .qtext{font-family:'Barlow',sans-serif;font-weight:600;font-size:15.5px;margin-bottom:12px;}
+  .quiz-opt{
+    display:block;background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:4px;
+    padding:11px 14px;margin-bottom:8px;cursor:pointer;font-size:14px;color:var(--off-white);
+    transition:border-color .15s ease;
+  }
+  .quiz-opt:hover{border-color:var(--gold-dim);}
+  .quiz-opt.correct{border-color:var(--green);background:rgba(63,191,127,0.08);}
+  .quiz-opt.incorrect{border-color:var(--red);background:rgba(201,86,74,0.08);}
+  .quiz-feedback{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted);margin-top:8px;display:none;}
+  .quiz-feedback.show{display:block;}
+  .quiz-score{
+    font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);text-align:center;
+    padding-top:18px;border-top:1px solid var(--navy-line);margin-top:6px;
+  }
+
+  .recap-box{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:22px 24px;margin-bottom:18px;}
+  .recap-box .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+  .recap-box ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--off-white);}
+  .recap-box ul li{margin-bottom:8px;}
+
+  footer.nav{padding:36px 0 60px;}
+  .next-up{display:flex;justify-content:space-between;align-items:center;background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:20px 26px;flex-wrap:wrap;gap:10px;}
+  .next-up .l1{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  .next-up .l2{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-top:4px;}
+  .badge{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);border:1px solid var(--gold-dim);padding:6px 12px;border-radius:20px;}
+
+
+/* ===== Chapter 5 styles ===== */
+
+  :root{
+    --navy-deep:#060810;
+    --navy:#0A0E1A;
+    --navy-panel:#101526;
+    --navy-line:#1E2438;
+    --gold:#D4AF37;
+    --gold-dim:#8A7328;
+    --off-white:#ECE9DF;
+    --muted:#8B92A5;
+    --green:#3FBF7F;
+    --red:#C9564A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--navy);color:var(--off-white);font-family:'Barlow',sans-serif;line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em;font-weight:400;color:var(--off-white);}
+  .mono{font-family:'DM Mono',monospace;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+
+  header.top{border-bottom:1px solid var(--navy-line);padding:22px 0;background:var(--navy-deep);}
+  .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.12em;color:var(--gold);}
+  .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+  .course-tag{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.05em;}
+
+  .recap{background:var(--navy-panel);border-bottom:1px solid var(--navy-line);padding:14px 0;}
+  .recap .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .recap .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
+  .recap p{margin:0;font-size:14px;color:var(--muted);}
+
+  .hero{padding:64px 0 44px;text-align:center;border-bottom:1px solid var(--navy-line);}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;}
+  .hero h1{font-size:54px;margin:14px 0 6px;line-height:0.95;}
+  .hero p.sub{color:var(--muted);max-width:600px;margin:14px auto 0;font-size:17px;}
+
+  section.block{padding:56px 0;border-bottom:1px solid var(--navy-line);}
+  section.block:last-of-type{border-bottom:none;}
+  .kicker{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  h2{font-size:34px;margin:0 0 20px;}
+  p{margin:0 0 16px;color:var(--off-white);}
+  p.lead{font-size:18px;}
+  .callout{background:var(--navy-panel);border-left:3px solid var(--gold);padding:18px 22px;border-radius:2px;margin:24px 0;}
+  .callout .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+  .callout p{margin:0;color:var(--muted);font-size:15px;}
+  .callout.warn{border-left-color:var(--red);}
+  .callout.warn .tag{color:var(--red);}
+
+  /* timeline of adoption curves */
+  .curve{margin:30px 0;}
+  .curve-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0;border-top:1px solid var(--navy-line);gap:16px;
+  }
+  .curve-row:last-child{border-bottom:1px solid var(--navy-line);}
+  .curve-row .era{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:110px;}
+  .curve-row .desc{font-size:14px;color:var(--muted);flex:1;}
+  .curve-row .who{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:right;min-width:110px;}
+
+  /* what you know now grid */
+  .know-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+  .know-card{background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:4px;padding:20px 22px;}
+  .know-card .ch{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--gold);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;}
+  .know-card h3{font-size:19px;margin:0 0 8px;}
+  .know-card p{font-size:13.5px;color:var(--muted);margin:0;}
+  @media (max-width:600px){.know-grid{grid-template-columns:1fr;}.hero h1{font-size:38px;}}
+
+  /* honest caveat */
+  .caveat-list{margin:24px 0;}
+  .caveat-item{display:flex;gap:18px;padding:14px 0;border-top:1px solid var(--navy-line);}
+  .caveat-item:last-child{border-bottom:1px solid var(--navy-line);}
+  .caveat-item .k{font-family:'DM Mono',monospace;color:var(--red);font-size:12px;min-width:80px;padding-top:2px;}
+  .caveat-item p{font-size:14px;color:var(--muted);margin:0;}
+
+  /* completion card */
+  .completion{
+    margin:30px auto 0;max-width:600px;background:var(--navy-panel);
+    border:1px solid var(--gold-dim);border-radius:4px;padding:36px 30px;text-align:center;
+  }
+  .completion .tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;}
+  .completion h2{font-size:38px;margin:10px 0 6px;}
+  .completion p{color:var(--muted);font-size:14.5px;max-width:440px;margin:0 auto;}
+  .completion .modules{
+    display:flex;justify-content:center;gap:10px;margin-top:22px;flex-wrap:wrap;
+  }
+  .completion .mod-pill{
+    font-family:'DM Mono',monospace;font-size:10.5px;color:var(--off-white);
+    border:1px solid var(--navy-line);background:var(--navy-deep);
+    padding:6px 12px;border-radius:20px;
+  }
+  .completion .mod-pill.done{border-color:var(--green);color:var(--green);}
+
+  footer.nav{padding:36px 0 60px;text-align:center;}
+  footer.nav p{color:var(--muted);font-size:13px;}
+  .signoff{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;color:var(--gold);margin-top:8px;}
+
+  /* ===== Combined Nav Shell ===== */
+  html{scroll-behavior:smooth;}
+  header.top{
+    border-bottom:1px solid var(--navy-line);padding:16px 0;background:var(--navy-deep);
+    position:sticky;top:0;z-index:100;
+  }
+  header.top .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  header.top .brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.12em;color:var(--gold);}
+  header.top .brand span{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.05em;margin-left:10px;}
+
+  .progress-track{height:3px;background:var(--navy-line);width:100%;}
+  .progress-fill{height:3px;background:var(--gold);width:20%;transition:width .3s ease;}
+
+  .chapter-nav{
+    position:sticky;top:57px;z-index:99;
+    background:var(--navy-panel);border-bottom:1px solid var(--navy-line);
+    padding:12px 0;overflow-x:auto;
+  }
+  .chapter-nav .wrap{display:flex;gap:8px;flex-wrap:nowrap;max-width:900px;}
+  .chnav-btn{
+    font-family:'DM Mono',monospace;font-size:11.5px;color:var(--muted);
+    background:var(--navy-deep);border:1px solid var(--navy-line);
+    padding:8px 14px;border-radius:20px;white-space:nowrap;cursor:pointer;
+    transition:all .15s ease;
+  }
+  .chnav-btn:hover{border-color:var(--gold-dim);color:var(--off-white);}
+  .chnav-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,0.08);}
+  .chnav-btn .num{color:var(--gold);margin-right:6px;}
+  .chnav-btn.active .num{color:var(--gold);}
+
+  .chapter-page{display:none;}
+  .chapter-page.active{display:block;animation:fadeIn .25s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .jump-nav{
+    position:fixed;bottom:24px;right:24px;display:flex;gap:8px;z-index:100;
+  }
+  .jump-btn{
+    font-family:'DM Mono',monospace;font-size:12px;color:var(--off-white);
+    background:var(--navy-panel);border:1px solid var(--navy-line);
+    padding:10px 16px;border-radius:24px;cursor:pointer;
+    box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  }
+  .jump-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .jump-btn:disabled{opacity:0.3;cursor:not-allowed;}
+  .jump-btn:disabled:hover{border-color:var(--navy-line);color:var(--off-white);}
+
+  @media (max-width:640px){
+    .jump-nav{bottom:14px;right:14px;left:14px;justify-content:space-between;}
+    .jump-btn{flex:1;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <div class="brand">BLOCK WALL STREET<span>ROBINHOOD CHAIN STUDY GUIDE</span></div>
+    <div class="course-tag mono">5 CHAPTERS · FULL GUIDE</div>
+  </div>
+</header>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<nav class="chapter-nav">
+  <div class="wrap">
+    <div class="chnav-btn" id="chnav-btn-1" data-ch="1"><span class="num">01</span>The Chain</div>
+    <div class="chnav-btn" id="chnav-btn-2" data-ch="2"><span class="num">02</span>The Wallet</div>
+    <div class="chnav-btn" id="chnav-btn-3" data-ch="3"><span class="num">03</span>RWAs</div>
+    <div class="chnav-btn" id="chnav-btn-4" data-ch="4"><span class="num">04</span>DeFi</div>
+    <div class="chnav-btn" id="chnav-btn-5" data-ch="5"><span class="num">05</span>The Edge</div>
+  </div>
+</nav>
+
+<div class="chapter-page" id="chapter-1">
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Chapter One</div>
+    <h1>Welcome to Robinhood Chain</h1>
+    <p class="sub">Before you trade on it, you need to understand what it actually is — and what changes for you the moment your assets move onchain.</p>
+
+    <div class="board">
+      <div class="board-row">
+        <div class="board-label">
+          <div class="name">Traditional Brokerage App</div>
+          <div class="desc mono">NYSE / NASDAQ hours · Mon–Fri</div>
+        </div>
+        <div class="board-status status-closed" id="tradStatus">CLOSED</div>
+      </div>
+      <div class="board-row">
+        <div class="board-label">
+          <div class="name">Robinhood Chain</div>
+          <div class="desc mono">Onchain settlement · 24/7/365</div>
+        </div>
+        <div class="board-status status-open">OPEN</div>
+      </div>
+      <div class="board-foot" id="boardFoot">Loading local market clock…</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">01 — What It Is</div>
+    <h2>Robinhood built its own blockchain</h2>
+    <p class="lead">Robinhood Chain is an Ethereum Layer 2 network, built using Arbitrum's technology, designed specifically for financial services — tokenized stocks, ETFs, and stablecoins moving with the speed of an app but the settlement guarantees of a blockchain.</p>
+    <p>It didn't appear overnight. Robinhood opened a public testnet on February 10, 2026 so developers could build and stress-test the network, then flipped on the public mainnet on July 1, 2026. Since then it's been settling real transactions — tokenized equities, ETFs, and everyday transfers — directly inside the Robinhood app.</p>
+    <div class="callout">
+      <div class="tag">Why this matters to you</div>
+      <p>You may never touch a block explorer or think about "Layer 2" again — Robinhood designed the chain to work in the background. But everything you'll learn in this guide (wallets, custody, RWAs) is what's actually happening underneath that simple app screen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">02 — What Changes For You</div>
+    <h2>Markets that never close</h2>
+    <p>Every trader who has ever watched a stock gap up overnight, or wanted to react to news at 10pm on a Sunday, has felt the same wall: the market is closed, and there's nothing you can do about it. Robinhood Chain removes that wall.</p>
+    <div class="compare">
+      <div class="card old">
+        <h3>The App You Know</h3>
+        <ul>
+          <li>Trades settle T+1, through clearinghouses</li>
+          <li>Market open 9:30am–4:00pm ET, weekdays</li>
+          <li>Your position lives on Robinhood's internal ledger</li>
+          <li>Moving your holdings elsewhere isn't really possible</li>
+        </ul>
+      </div>
+      <div class="card new">
+        <h3>Onchain, on Robinhood Chain</h3>
+        <ul>
+          <li>Trades settle onchain, near-instantly</li>
+          <li>Markets are always open — nights, weekends, holidays</li>
+          <li>Your position can live in a wallet you control</li>
+          <li>Assets can move to other wallets or apps that support the chain</li>
+        </ul>
+      </div>
+    </div>
+    <p>That last row is the biggest shift in this whole guide. Once an asset is a token on a chain, custody becomes a choice — which is exactly why the second half of this chapter is about wallets.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">03 — The Build Decision</div>
+    <h2>Why EVM, and why Arbitrum</h2>
+    <p>Robinhood had a choice to make: build something entirely proprietary, or build on rails the rest of the crypto world already understands. They chose the second path — an EVM-compatible chain, built on Arbitrum's technology.</p>
+    <div class="stack">
+      <div class="stack-item">
+        <div class="k mono">EVM</div>
+        <div class="v">
+          <h3>Speaks the same language as Ethereum</h3>
+          <p>EVM-compatible means Robinhood Chain runs the same type of smart contracts, and works with the same wallets and developer tools, as Ethereum itself. Nothing exotic to learn — a wallet like Rabby that already works on Ethereum works here too.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="k mono">ARBITRUM</div>
+        <div class="v">
+          <h3>A dedicated chain, not a shared one</h3>
+          <p>Rather than just deploying on top of an existing Arbitrum network, Robinhood used Arbitrum's framework to launch its own dedicated chain — one it can configure, tune for speed (block times around 100 milliseconds), and control, while still settling back to Ethereum and inheriting its security model.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="k mono">GAS</div>
+        <div class="v">
+          <h3>ETH pays the fees</h3>
+          <p>Robinhood didn't launch a new token you're forced to buy just to transact. Transaction fees on Robinhood Chain are paid in ETH — one less new asset for you to acquire before you can use the network.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">04 — A First Look</div>
+    <h2>Real-world assets, briefly</h2>
+    <p>The headline use case on Robinhood Chain today is Real-World Assets, or RWAs — tokenized versions of stocks and ETFs that trade onchain. A share of a company, represented as a token you can hold in a wallet.</p>
+    <div class="callout">
+      <div class="tag">Worth knowing now, not memorizing yet</div>
+      <p>These stock tokens give you price exposure — they are not the legal share itself, and they don't come with shareholder rights like voting. We're flagging that distinction here so it's not a surprise later, and we'll unpack RWAs properly — mechanics, risks, and examples — in a dedicated chapter.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">05 — Wallets</div>
+    <h2>The two wallets you'll use in this course</h2>
+    <p class="lead">Once your assets are tokens on a chain, you get to decide who holds the keys. In this course, we'll work with two non-custodial wallets side by side.</p>
+    <p><strong>Rabby Wallet</strong> is a non-custodial, EVM-native wallet. Non-custodial means exactly what it sounds like — nobody but you holds the private keys, and nobody but you can move the funds. We'll use Rabby as our primary hands-on wallet for the exercises in this course.</p>
+    <p><strong>Robinhood's mobile wallet</strong> is also non-custodial and lives right inside the app you already know. It's built for Robinhood Chain specifically, so it's the natural home for the assets you trade there.</p>
+    <p>You'll practice moving between the two by using your seed phrase — the recovery phrase generated when a wallet is created — to import one wallet into the other.</p>
+
+    <div class="wallet-flow">
+      <div class="wallet-box">
+        <div class="name">Rabby Wallet</div>
+        <div class="role mono">Desktop / Extension</div>
+      </div>
+      <div class="wallet-arrow">⇄</div>
+      <div class="wallet-box">
+        <div class="name">Robinhood Wallet</div>
+        <div class="role mono">Mobile / Non-Custodial</div>
+      </div>
+    </div>
+    <div class="arrow-caption">Import the seed phrase in either direction — same underlying keys, two interfaces</div>
+
+    <div class="seed-note">
+      <div class="tag">Handle with care</div>
+      <p>Your seed phrase is the master key to every asset in that wallet. We'll cover proper seed phrase handling and storage in detail before you ever type one in — for now, just know that whoever holds the seed phrase holds the wallet.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="nav">
+  <div class="wrap">
+    <div class="next-up">
+      <div>
+        <div class="l1">Up Next — Chapter 2</div>
+        <div class="l2">Setting Up Rabby Wallet</div>
+      </div>
+      <div class="badge">CH. 01 COMPLETE</div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div class="chapter-page" id="chapter-2">
+<div class="recap">
+  <div class="wrap">
+    <div class="tag">Recap</div>
+    <p>Chapter 1: Robinhood Chain is an EVM-compatible network built on Arbitrum, open 24/7 — and once your assets are tokens, custody becomes a choice.</p>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Chapter Two</div>
+    <h1>Take the Keys</h1>
+    <p class="sub">This is where custody stops being a concept and becomes something you actually do — starting with a wallet only you control.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">01 — Getting Set Up</div>
+    <h2>Setting up Rabby Wallet</h2>
+    <p class="lead">We're keeping this part brief — enough to get you a working wallet, not a full deep-dive. We'll cover wallet security in depth in its own chapter.</p>
+
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="k mono">01</div>
+        <div class="v">
+          <h3>Install Rabby</h3>
+          <p>Add the Rabby browser extension (or the mobile app) from the official source. It's free, and installation takes under a minute.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="k mono">02</div>
+        <div class="v">
+          <h3>Create a new wallet</h3>
+          <p>Choose "Create New Address." Rabby generates a fresh seed phrase for you — this is the master key to everything that will ever be in this wallet.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="k mono">03</div>
+        <div class="v">
+          <h3>Back up the seed phrase</h3>
+          <p>Write it down, in order, somewhere offline. This is the one step in this whole chapter you cannot skip or rush.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="k mono">04</div>
+        <div class="v">
+          <h3>Confirm and land in your wallet</h3>
+          <p>Once confirmed, you'll land on your wallet dashboard — funded with nothing yet, but fully yours. That's the whole setup.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="seed-note">
+      <div class="tag">One rule for today</div>
+      <p>Never type your seed phrase into a website, a chat, or a screenshot. The only place it belongs is on paper, offline. We'll go much deeper on this in the Wallet Security chapter.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">02 — The Real Shift</div>
+    <h2>What "permissionless" actually means</h2>
+    <p>Notice what didn't happen back in that setup: nobody reviewed your application. Nobody checked your income. Nobody approved you. That's not an oversight — it's the point.</p>
+    <div class="compare">
+      <div class="card old">
+        <h3>Opening a Brokerage Account</h3>
+        <ul>
+          <li>Submit identity documents for verification</li>
+          <li>Wait for account approval</li>
+          <li>Subject to geographic and eligibility restrictions</li>
+          <li>Access can be paused, limited, or revoked by the platform</li>
+        </ul>
+      </div>
+      <div class="card new">
+        <h3>Connecting a Wallet</h3>
+        <ul>
+          <li>Install, generate keys, done</li>
+          <li>No approval process — the wallet exists the moment you create it</li>
+          <li>No one grants you access to the chain</li>
+          <li>Nothing to revoke — you hold the keys</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="tag">Permissionless, defined</div>
+      <p>Anyone with a wallet and funds can interact with RWAs on Robinhood Chain directly. There's no gatekeeper standing between you and the asset — just you, your wallet, and the chain.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">03 — Put It Into Practice</div>
+    <h2>24/7 isn't a slogan — it's a timestamp</h2>
+    <p>In Chapter 1, the market status board showed you that the chain never closes. Here's the difference: that was the chain being open. This is you, wallet in hand, actually walking through the door.</p>
+
+    <div class="moment">
+      <div class="moment-head">
+        <div class="l">Live Scenario</div>
+        <div class="r" id="momentTime">Loading…</div>
+      </div>
+      <div class="moment-body">
+        <div class="line"><span class="label">Traditional brokerage app</span><span class="val" id="tradState">—</span></div>
+        <div class="line"><span class="label">Your Rabby wallet + Robinhood Chain</span><span class="val">Open right now</span></div>
+        <div class="line"><span class="label">Approval required to act</span><span class="val">None</span></div>
+      </div>
+    </div>
+    <p style="margin-top:24px;">Whatever this page says the traditional market is doing at this exact second, your wallet doesn't care. There's no "come back Monday." You connect, you sign, it settles.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">04 — Wallet + Chain</div>
+    <h2>Two pieces, one system</h2>
+    <p>Your wallet is the permissionless key. Robinhood Chain is the always-open venue. Neither one does much without the other — together, they're what replaces the account-and-approval model entirely.</p>
+    <div class="connect-flow">
+      <div class="connect-box">
+        <div class="name">Rabby Wallet</div>
+        <div class="role mono">Your Permissionless Key</div>
+      </div>
+      <div class="connect-arrow">+</div>
+      <div class="connect-box">
+        <div class="name">Robinhood Chain</div>
+        <div class="role mono">Always-Open Venue</div>
+      </div>
+    </div>
+    <div class="connect-caption">No account. No approval. No hours.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">Chapter Close</div>
+    <h2>Where we're headed next</h2>
+    <div class="recap-box">
+      <div class="tag">You now know</div>
+      <ul>
+        <li>How to get a working, self-custody Rabby wallet set up</li>
+        <li>What "permissionless" means in practice — no gatekeeper, no approval process</li>
+        <li>What 24/7 access actually looks like when it's your wallet doing the acting, not just the chain being technically open</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <div class="tag">Coming up</div>
+      <p>We touched RWAs briefly in Chapter 1 and used them here to make permissionless access concrete. The dedicated RWA chapter is where we go deep — mechanics, risks, and real tokenized stock examples.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="nav">
+  <div class="wrap">
+    <div class="next-up">
+      <div>
+        <div class="l1">Up Next — Chapter 3</div>
+        <div class="l2">Real-World Assets, In Depth</div>
+      </div>
+      <div class="badge">CH. 02 COMPLETE</div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div class="chapter-page" id="chapter-3">
+<div class="recap">
+  <div class="wrap">
+    <div class="tag">Recap</div>
+    <p>Chapter 2: your Rabby wallet is a permissionless key, Robinhood Chain never closes — now let's understand exactly what you're holding when you buy an RWA.</p>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Chapter Three</div>
+    <h1>Real-World Assets, In Depth</h1>
+    <p class="sub">We flagged this back in Chapter 1: what you're buying isn't quite what it looks like. Here's exactly what it is, what it isn't, and what can go wrong.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">01 — The Product</div>
+    <h2>What an RWA token actually is</h2>
+    <p class="lead">On Robinhood Chain, the flagship RWA product is called Stock Tokens — standard ERC-20 tokens that track the price of real securities like NVIDIA, Apple, or Google stock.</p>
+    <p>They're issued by Robinhood Assets (Jersey) Limited, a legal entity structured specifically to issue these tokens. Robinhood buys and holds the real underlying shares, and the token is designed to track that share's price.</p>
+    <div class="backing">
+      <div class="backing-box"><div class="name">Real Share</div><div class="role mono">Held by Issuer (RHJ)</div></div>
+      <div class="backing-arrow">→</div>
+      <div class="backing-box"><div class="name">Price Oracle</div><div class="role mono">Chainlink Feed</div></div>
+      <div class="backing-arrow">→</div>
+      <div class="backing-box"><div class="name">Stock Token</div><div class="role mono">ERC-20 in Your Wallet</div></div>
+    </div>
+    <div class="backing-caption">Custody sits with BitGo · settlement runs through USDG, a dollar-backed stablecoin</div>
+    <p style="margin-top:24px;">Because it's a standard ERC-20, it behaves like any other token in your wallet — it can be held, sent, or plugged into other onchain apps, with no special software required.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">02 — Read The Fine Print</div>
+    <h2>What you own vs. what you don't</h2>
+    <p>This is the distinction we flagged back in Chapter 1, and it matters enough to spell out in full before you ever buy one of these tokens.</p>
+    <div class="compare">
+      <div class="card yes">
+        <h3>What You Get</h3>
+        <ul>
+          <li>Price exposure that tracks the underlying stock</li>
+          <li>A token you self-custody in your own wallet</li>
+          <li>The ability to trade it 24/7, permissionlessly</li>
+          <li>The ability to use it elsewhere onchain (as collateral, in DeFi)</li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h3>What You Don't Get</h3>
+        <ul>
+          <li>Legal ownership of the underlying share</li>
+          <li>Shareholder voting rights or proxy votes</li>
+          <li>Any direct legal claim against the company itself</li>
+          <li>Dividends, unless the specific token structure explicitly passes them through</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn">
+      <div class="tag">Say it plainly</div>
+      <p>Robinhood's own documentation is direct about this: Stock Tokens are tokenized debt securities that provide economic exposure to the underlying stock, but grant no legal or beneficial rights in, or against, the company itself. You're exposed to the price. You are not a shareholder.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">03 — Mechanics</div>
+    <h2>How trading them actually works</h2>
+    <p>There's no ticket, no order desk, no waiting for market open. You connect your wallet to a venue built on Robinhood Chain and trade directly.</p>
+    <div class="venues">
+      <div class="venue-card">
+        <div class="name">rwa.wtf</div>
+        <p>A dedicated RWA perpetuals trading terminal — built for trading perpetual futures on tokenized stocks and other real-world assets, settled onchain, 24/7.</p>
+      </div>
+      <div class="venue-card">
+        <div class="name">Uniswap</div>
+        <p>The same decentralized exchange you may already know from Ethereum, also live on Robinhood Chain for onchain swaps.</p>
+      </div>
+    </div>
+    <p>Settlement happens onchain, near-instantly, the same way we walked through in Chapter 2 — no market hours, no T+1 wait. That also means execution runs through decentralized liquidity rather than a centralized order book, so price and available depth can shift with that liquidity, especially on less-traded tokens.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">04 — Know the Downside</div>
+    <h2>Risks specific to RWAs</h2>
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="k mono">ISSUER RISK</div>
+        <div class="v"><h3>You're trusting RHJ to actually hold the shares</h3><p>The token's value depends on the issuer genuinely holding and managing the underlying stock. If that trust breaks down, the token's link to the real asset breaks with it.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">DE-PEG RISK</div>
+        <div class="v"><h3>The token can drift from the real price</h3><p>The oracle and market mechanics are designed to keep the token's price tracking the underlying share closely — but "designed to" isn't "guaranteed to," especially in periods of high volatility or thin liquidity.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">SMART CONTRACT RISK</div>
+        <div class="v"><h3>Code can have bugs</h3><p>Like any onchain asset, Stock Tokens depend on smart contracts functioning as intended. A flaw in that code is a risk that simply doesn't exist with a paper share certificate.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">REGULATORY RISK</div>
+        <div class="v"><h3>This is genuinely new, unsettled ground</h3><p>Stock Tokens are currently offered in the EU/EEA and are explicitly not available to US residents — access depends entirely on where you are, and that regulatory picture is still being written.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">05 — In Action</div>
+    <h2>A real example</h2>
+    <div class="example-card">
+      <div class="example-head">
+        <div class="name">NVIDIA Stock Token</div>
+        <div class="type">ERC-20 · Robinhood Chain</div>
+      </div>
+      <div class="example-row"><span class="label">Issuer</span><span class="val">Robinhood Assets (Jersey) Limited</span></div>
+      <div class="example-row"><span class="label">Tracks</span><span class="val">NVIDIA (NVDA) share price</span></div>
+      <div class="example-row"><span class="label">Price feed</span><span class="val">Chainlink oracle</span></div>
+      <div class="example-row"><span class="label">Custody of real shares</span><span class="val">BitGo</span></div>
+      <div class="example-row"><span class="label">Grants shareholder rights?</span><span class="val">No</span></div>
+      <div class="example-row"><span class="label">Tradeable on</span><span class="val">rwa.wtf, Uniswap — 24/7</span></div>
+    </div>
+    <p>Everything from this chapter is sitting in that one card: real backing, price-only exposure, always-open trading, and a set of risks that are genuinely different from owning the paper share directly.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">Chapter Close</div>
+    <h2>Where we're headed next</h2>
+    <div class="recap-box">
+      <div class="tag">You now know</div>
+      <ul>
+        <li>What a Stock Token actually is — an ERC-20 tracking a real share's price, backed and custodied by real institutions</li>
+        <li>Exactly what you get (price exposure, self-custody, 24/7 access) and what you don't (legal ownership, voting rights)</li>
+        <li>Where and how trading actually happens — rwa.wtf and Uniswap, settling onchain</li>
+        <li>The specific risks unique to RWAs — issuer, de-peg, smart contract, and regulatory</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <div class="tag">Coming up</div>
+      <p>You've got the wallet and you understand the asset. Chapter 4 takes it further — putting RWAs to work inside Robinhood Chain's DeFi sector, using protocols like The Index that turn onchain activity into real stock rewards.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="nav">
+  <div class="wrap">
+    <div class="next-up">
+      <div>
+        <div class="l1">Up Next — Chapter 4</div>
+        <div class="l2">Getting Into DeFi</div>
+      </div>
+      <div class="badge">CH. 03 COMPLETE</div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div class="chapter-page" id="chapter-4">
+<div class="module-nav">
+  <div class="wrap">
+    <div class="module-pill">01 · Landscape</div>
+    <div class="module-pill">02 · Liquidity Layer</div>
+    <div class="module-pill">03 · Meridian</div>
+    <div class="module-pill">04 · The Index</div>
+    <div class="module-pill">05 · rwa.wtf</div>
+    <div class="module-pill">06 · pons + Indices</div>
+    <div class="module-pill">07 · Calculator</div>
+    <div class="module-pill">08 · Risks</div>
+    <div class="module-pill">09 · Glossary</div>
+    <div class="module-pill">10 · Quiz</div>
+  </div>
+</div>
+
+<div class="recap">
+  <div class="wrap">
+    <div class="tag">Recap</div>
+    <p>Chapter 3: Stock Tokens give you price exposure to real shares, tradeable 24/7 — now let's see the full DeFi sector built around them.</p>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Chapter Four</div>
+    <h1>Getting Into DeFi</h1>
+    <p class="sub">Five projects, one connected system. By the end of this chapter you'll understand not just what each of these apps does, but why they were built to feed each other.</p>
+    <div class="meta">
+      <div>10 MODULES</div>
+      <div><span>·</span></div>
+      <div>1 CASE STUDY</div>
+      <div><span>·</span></div>
+      <div>1 LIVE CALCULATOR</div>
+      <div><span>·</span></div>
+      <div>END-OF-CHAPTER QUIZ</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 01</div>
+  <div class="wrap">
+    <h2>The DeFi landscape on Robinhood Chain</h2>
+    <p class="sub-lead">Every project in this chapter exists because Stock Tokens exist. Before we go deep on any one of them, here's the full map.</p>
+    <p class="lead">DeFi — decentralized finance — is what happens when trading, lending, and yield-generating products get built directly on a blockchain instead of inside a company's app. Nobody at Robinhood built rwa.wtf, up., or The Index. Independent teams did, using Robinhood Chain as the foundation, the same way developers build apps on Ethereum without Ethereum's own team writing them.</p>
+    <p>That matters for how you should think about risk here: Robinhood Chain itself is the venue, but everything in this chapter is third-party software running on top of it — closer to apps in an app store than features of the store itself.</p>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <div class="name">Uniswap</div>
+        <div class="role mono">Spot Liquidity Layer</div>
+        <p>The dominant venue for swapping Stock Tokens directly. V2, V3, and V4 were integrated into Robinhood Chain from day one and currently carry roughly 99% of all Stock Token DEX liquidity on the chain.</p>
+      </div>
+      <div class="eco-card">
+        <div class="name">up.</div>
+        <div class="role mono">Native Liquidity Marketplace</div>
+        <p>A community-governed alternative to Uniswap — a ve(3,3)-style DEX where locking the UP token lets holders vote on which pools get rewarded, and earn the fees those pools generate.</p>
+      </div>
+      <div class="eco-card">
+        <div class="name">Meridian</div>
+        <div class="role mono">Predictions & RWA Perps</div>
+        <p>A broader derivatives platform combining prediction markets on real-world events with leveraged RWA trading — one of Robinhood Chain's official day-one launch partners.</p>
+      </div>
+      <div class="eco-card">
+        <div class="name">The Index + rwa.wtf + pons</div>
+        <div class="role mono">One Connected System</div>
+        <p>What looks like three separate projects is actually a single dividend engine, its own trading venue, and a token factory that can plug into that engine. This is the heart of the chapter — Modules 4 through 6.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 02</div>
+  <div class="wrap">
+    <h2>The liquidity layer, in depth</h2>
+    <p class="sub-lead">Before anything else can happen — trading, dividends, perps — someone has to provide the liquidity that makes swaps possible. Two very different philosophies handle that on Robinhood Chain.</p>
+
+    <h3 class="mini">Uniswap: the default</h3>
+    <p>Robinhood didn't leave liquidity to chance when it launched the chain — it integrated Uniswap V2, V3, and V4 plus UniswapX from day one, making Uniswap the primary automated market maker for the entire network. Anyone can immediately swap into Stock Tokens, supply liquidity, or build on top of familiar Uniswap infrastructure without learning something new.</p>
+    <p>V4 has become the preferred venue specifically because of its "hooks" architecture — it lets developers customize how a pool behaves (dynamic fees, automated strategies, custom execution logic) without deploying an entirely separate protocol. That flexibility is a big part of why V4 alone accounts for the majority of Stock Token liquidity on the chain, with V3 holding most of the rest.</p>
+
+    <h3 class="mini">up.: liquidity as a vote</h3>
+    <p>up. takes a different approach, borrowed from a DeFi design pattern called <strong>ve(3,3)</strong>. Instead of Uniswap's passive liquidity pools, up. lets holders of its UP token lock it up in exchange for <strong>veUP</strong> — a non-transferable, vote-carrying position.</p>
+    <div class="cycle">
+      <div class="cycle-box"><div class="n">Lock UP</div><div class="s">Get veUP</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">Vote on Pools</div><div class="s">Each 7-Day Epoch</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">Pool Gets Emissions</div><div class="s">Rewarded By Vote Weight</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">Voter Earns Fees</div><div class="s">Pro-Rata To Vote Share</div></div>
+    </div>
+    <p>Every seven days, an "epoch" resets — veUP holders point their votes at whichever pools they think deserve rewarded liquidity, and in return collect that pool's trading fees plus any extra incentives added to it. The system also builds in "caps" that tie new UP issuance to UP's own price, specifically to avoid a problem earlier ve(3,3) projects had, where voting for your own quiet, low-volume pool was the most profitable move and slowly inflated the token into worthlessness.</p>
+    <div class="callout">
+      <div class="tag">Why this distinction matters</div>
+      <p>Uniswap gives you simple, deep, no-frills liquidity. up. gives you a say in where liquidity goes, plus a share of the fees for voting well — at the cost of more complexity and a token (UP) you need to understand on its own terms.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 03</div>
+  <div class="wrap">
+    <h2>Meridian: predictions meet RWA perps</h2>
+    <p class="sub-lead">Meridian is worth understanding on its own before we get to The Index — it shows a second, independent approach to building derivatives on Robinhood Chain.</p>
+    <p>Meridian didn't start life on Robinhood Chain. It launched as <strong>Ethereal</strong>, a perpetuals exchange built by the team behind Ethena's USDe stablecoin. When Robinhood began recruiting projects to build on its new chain, Ethereal rebranded as Meridian and shifted its focus specifically toward real-world assets and prediction markets, going live as one of the chain's official day-one launch partners.</p>
+    <p>Meridian has two core products:</p>
+    <table class="data-table">
+      <tr><th>Product</th><th>What It Does</th><th>Settlement</th></tr>
+      <tr><td>Meridian Predict</td><td>Prediction markets on real-world events — sports, weather, politics, economic data — with the ability to combine multiple predictions into one combo bet</td><td class="g">USDe</td></tr>
+      <tr><td>RWA Perpetuals</td><td>Leveraged trading on Stock Tokens and other real-world assets, as part of a broader derivatives stack</td><td class="g">USDe</td></tr>
+    </table>
+    <p>The mechanism behind Meridian Predict is an <strong>RFQ (request-for-quote) auction</strong> — instead of a traditional order book where buyers and sellers post prices and wait to be matched, market makers compete in real time to offer the best odds on a given prediction. Robinhood's own documentation describes this as producing deeper liquidity and fairer pricing than a standard order-book model, especially for the kind of one-off, event-based bets a prediction market deals in.</p>
+    <div class="callout">
+      <div class="tag">Worth noting</div>
+      <p>Meridian settles in USDe (Ethena's synthetic dollar), not USDG like most of the rest of Robinhood Chain. That's a direct fingerprint of its Ethereal/Ethena origins — a reminder that "built on Robinhood Chain" doesn't mean every project shares the same underlying assets or design choices.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 04</div>
+  <div class="wrap">
+    <h2>The Index: the core mechanic</h2>
+    <p class="sub-lead">This is the project everything else in the back half of this chapter revolves around. Get this mechanic fully, and rwa.wtf and pons will make sense immediately.</p>
+    <p class="lead">The Index (INDEX) is a token built around one promise: hold it, and trading activity around it pays you in real stock exposure — automatically, with nothing to claim or stake.</p>
+    <div class="cycle">
+      <div class="cycle-box"><div class="n">INDEX Trades</div><div class="s">On Uniswap V4, INDEX/USDG</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">3% ETH Tax</div><div class="s">Charged On Every Trade</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">Buys Stock Tokens</div><div class="s">Real RWAs, Onchain</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-box"><div class="n">Sent To Holders</div><div class="s">Pro-Rata, Every Hour</div></div>
+    </div>
+    <p>Two details matter for how a student should actually think about this:</p>
+    <table class="data-table">
+      <tr><th>Detail</th><th>What It Means</th></tr>
+      <tr><td>Distribution cadence</td><td>Originally every 15 minutes; the protocol now runs on an <span class="g">hourly</span> cycle instead — confirmed directly from the in-app countdown timer</td></tr>
+      <tr><td>What "holding" requires</td><td>No staking, no locking, no claim transaction — the wallet balance itself is what qualifies you for the next distribution</td></tr>
+    </table>
+    <p>The size of any individual holder's payout is simple in principle: it's their share of total eligible INDEX supply, multiplied by whatever the tax pool bought that cycle. Trade more volume, generate more tax, buy more stock — the flywheel only spins as fast as INDEX itself gets traded.</p>
+    <div class="callout warn">
+      <div class="tag">The obvious tension</div>
+      <p>A token whose rewards depend on trading volume needs trading volume to keep flowing. That's exactly the gap rwa.wtf was built to fill — which is why it exists in the first place.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 05</div>
+  <div class="wrap">
+    <h2>rwa.wtf: the Index's own trading venue</h2>
+    <p class="sub-lead">This is the connection most people miss. rwa.wtf looks like an independent perps app — it isn't.</p>
+    <p>The Index team launched rwa.wtf themselves, on July 15, as a dedicated RWA perpetuals terminal — a place to trade leveraged positions on tokenized stocks and other real-world assets, settled onchain, 24/7, with leverage available up to 50x.</p>
+    <p>Its fee structure is the tell. Every trading fee generated on rwa.wtf is split two ways:</p>
+    <div class="split-bar">
+      <div class="seg a">75% → Buys Stock Tokens, Sent To INDEX Holders</div>
+      <div class="seg b">25% → Deepens Liquidity</div>
+    </div>
+    <p>That's not a partnership or an integration — it's the same team routing a second revenue stream into the exact same distribution mechanic covered in Module 4. rwa.wtf's whole purpose is to generate more trading fees than INDEX's own 3% tax could alone, because leveraged perpetual trading tends to generate dramatically more volume than simple spot swaps.</p>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-box highlight"><div class="name">rwa.wtf</div><div class="sub">Leveraged RWA Perps</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><div class="name">Trading Fees</div><div class="sub">Every Position, Every Trade</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box highlight"><div class="name">INDEX Holders</div><div class="sub">Same Hourly Distribution</div></div>
+      </div>
+      <div class="flow-split">rwa.wtf isn't competing with The Index — <span class="pct">it's feeding it.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 06</div>
+  <div class="wrap">
+    <h2>pons + Indices: the mechanic goes portable</h2>
+    <p class="sub-lead">The last piece: how a completely different token, launched by a completely different person, can borrow The Index's exact reward engine for itself.</p>
+    <p><strong>pons</strong> (ponsfamily.com/launchpad) is a launchpad for fixed-supply tokens on Robinhood Chain. On its own, it has nothing to do with dividends — anyone can create a token, and every transaction routes through the creator's own wallet. pons doesn't custody anything.</p>
+    <p>The connection comes through a feature The Index built called <strong>Indices</strong> — a treasury tool that lets any project redirect its own fees into the same fee-to-stock-dividend mechanic INDEX uses for itself.</p>
+    <div class="pons-flow">
+      <div class="pons-step">
+        <div class="k mono">01</div>
+        <div class="v"><h3>A token launches on pons</h3><p>A creator spins up a new fixed-supply token. Like any pons launch, it carries its own trading tax and creator rewards.</p></div>
+      </div>
+      <div class="pons-step">
+        <div class="k mono">02</div>
+        <div class="v"><h3>The creator opens an Indices treasury</h3><p>Using The Index's Indices feature, they create a dedicated treasury address for their token.</p></div>
+      </div>
+      <div class="pons-step">
+        <div class="k mono">03</div>
+        <div class="v"><h3>pons fees get pointed at that treasury</h3><p>The token's pons trading tax and creator rewards are routed to the new Indices treasury instead of sitting with the creator.</p></div>
+      </div>
+      <div class="pons-step">
+        <div class="k mono">04</div>
+        <div class="v"><h3>The treasury converts those fees into Stock Tokens</h3><p>Same mechanic as Module 4 — fees become real stock exposure, not just held as ETH or the token itself.</p></div>
+      </div>
+      <div class="pons-step">
+        <div class="k mono">05</div>
+        <div class="v"><h3>100% of protocol fees flow back to that token's holders</h3><p>The pons-launched token effectively becomes its own miniature Index — its community gets paid in stocks, using infrastructure they didn't have to build themselves.</p></div>
+      </div>
+    </div>
+    <div class="callout green">
+      <div class="tag">Why this is a big deal for the sector</div>
+      <p>The Index stopped being just one token and started being shared infrastructure. Any pons project can now offer "get paid in stocks" to its own holders without writing a single line of that mechanic itself — they're renting The Index's engine.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 07 · Try It Yourself</div>
+  <div class="wrap">
+    <h2>Distribution calculator</h2>
+    <p class="sub-lead">Adjust the sliders to see how INDEX's core mechanic scales — this uses the same math covered in Module 4, applied to rwa.wtf's fee split from Module 5.</p>
+    <div class="calc">
+      <div class="calc-head">Hourly Cycle Estimate</div>
+      <div class="calc-row">
+        <label>rwa.wtf volume this hour</label>
+        <input type="range" id="volSlider" min="10000" max="2000000" step="10000" value="500000">
+        <div class="calc-val" id="volVal">$500,000</div>
+      </div>
+      <div class="calc-row">
+        <label>Assumed fee rate</label>
+        <input type="range" id="feeSlider" min="0.05" max="1" step="0.05" value="0.3">
+        <div class="calc-val" id="feeVal">0.30%</div>
+      </div>
+      <div class="calc-row">
+        <label>Your share of eligible INDEX supply</label>
+        <input type="range" id="shareSlider" min="0.001" max="1" step="0.001" value="0.01">
+        <div class="calc-val" id="shareVal">0.010%</div>
+      </div>
+      <div class="calc-out">
+        <div class="item"><div class="l">Total Fees Generated</div><div class="v" id="outFees">$1,500</div></div>
+        <div class="item"><div class="l">To Stock Buys (75%)</div><div class="v gold" id="outStock">$1,125</div></div>
+        <div class="item"><div class="l">To Liquidity (25%)</div><div class="v" id="outLiq">$375</div></div>
+        <div class="item"><div class="l">Your Estimated Cut</div><div class="v gold" id="outYours">$0.11</div></div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);">This is a teaching tool, not a promise — real fee rates, volume, and eligible supply all move constantly, and none of these numbers are guaranteed.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 08</div>
+  <div class="wrap">
+    <h2>What to weigh before participating</h2>
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="k mono">EARLY STAGE</div>
+        <div class="v"><h3>This entire ecosystem is only weeks old</h3><p>Robinhood Chain launched July 1, 2026. Every project in this chapter launched shortly after — track records are short, and usage patterns are still forming.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">LEVERAGE</div>
+        <div class="v"><h3>rwa.wtf and Meridian involve leveraged positions</h3><p>Perpetuals amplify both gains and losses, and rwa.wtf specifically offers up to 50x. This is a materially different risk profile than simply holding a Stock Token.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">DEPENDENCY</div>
+        <div class="v"><h3>Connected systems share risk</h3><p>Because rwa.wtf's fees feed INDEX distributions, and pons tokens can route through the same Indices mechanic, a problem in one piece of this system — a smart contract bug, an oracle failure, a liquidity crunch — can ripple into the others.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">VOLUME DEPENDENCE</div>
+        <div class="v"><h3>The whole mechanic needs activity to keep working</h3><p>INDEX and anything built on Indices only pays out if trading volume keeps flowing. A quiet market means smaller distributions, full stop — there's no yield sitting in reserve.</p></div>
+      </div>
+      <div class="risk-item">
+        <div class="k mono">GOVERNANCE COMPLEXITY</div>
+        <div class="v"><h3>up.'s vote-for-rewards model can be gamed</h3><p>ve(3,3) systems have a documented history of holders voting for their own low-volume pools to extract rewards — up.'s "caps" mechanism was built specifically to blunt this, but it's a known attack pattern in the design, not a solved problem.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 09</div>
+  <div class="wrap">
+    <h2>Glossary</h2>
+    <div class="glossary">
+      <div class="g-item"><div class="term mono">ve(3,3)</div><div class="def">A DeFi liquidity model where locking a token for voting power ("ve" = vote-escrowed) lets holders direct rewards toward specific pools and earn fees for doing so.</div></div>
+      <div class="g-item"><div class="term mono">Epoch</div><div class="def">A fixed time period (7 days on up.) after which votes reset and new emissions get allocated based on the votes cast.</div></div>
+      <div class="g-item"><div class="term mono">RFQ Auction</div><div class="def">"Request for quote" — a pricing model where market makers actively compete to offer the best price, rather than buyers and sellers being matched on a static order book.</div></div>
+      <div class="g-item"><div class="term mono">Treasury (Indices)</div><div class="def">A dedicated address, created via The Index's Indices feature, that collects a project's own fees and converts them into Stock Tokens for that project's holders.</div></div>
+      <div class="g-item"><div class="term mono">Perpetual (Perp)</div><div class="def">A derivatives contract that tracks an asset's price with leverage and no expiration date — used on both rwa.wtf and Meridian.</div></div>
+      <div class="g-item"><div class="term mono">Fixed-Supply Token</div><div class="def">A token with a total supply set at creation that never increases — the standard format for tokens launched on pons.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="module-tag">Module 10 · Check Your Understanding</div>
+  <div class="wrap">
+    <h2>Chapter 4 quiz</h2>
+    <p class="sub-lead">Four questions covering the core connections from this chapter. Click an answer to check it.</p>
+    <div class="quiz" id="quiz">
+      <div class="quiz-q" data-answer="c">
+        <div class="qtext">1. What is rwa.wtf's actual relationship to The Index?</div>
+        <div class="quiz-opt" data-choice="a">A competing, unrelated perps platform</div>
+        <div class="quiz-opt" data-choice="b">A project The Index has an investment in</div>
+        <div class="quiz-opt" data-choice="c">A trading venue built and operated by The Index's own team</div>
+        <div class="quiz-feedback">Correct answer: rwa.wtf was launched by The Index team itself, with 75% of its fees feeding INDEX holder distributions directly.</div>
+      </div>
+      <div class="quiz-q" data-answer="b">
+        <div class="qtext">2. How often does The Index currently distribute Stock Tokens to holders?</div>
+        <div class="quiz-opt" data-choice="a">Every 15 minutes</div>
+        <div class="quiz-opt" data-choice="b">Every hour</div>
+        <div class="quiz-opt" data-choice="c">Once per day</div>
+        <div class="quiz-feedback">Correct answer: hourly — this changed from the original 15-minute cadence.</div>
+      </div>
+      <div class="quiz-q" data-answer="a">
+        <div class="qtext">3. What does pons's "Indices" connection actually let a pons-launched token do?</div>
+        <div class="quiz-opt" data-choice="a">Route its own fees into a treasury that pays its holders Stock Token dividends, the same way INDEX pays its own holders</div>
+        <div class="quiz-opt" data-choice="b">Automatically merge with INDEX and become the same token</div>
+        <div class="quiz-opt" data-choice="c">Get free liquidity from Uniswap</div>
+        <div class="quiz-feedback">Correct answer: it lets the token borrow The Index's fee-to-stock-dividend mechanic for its own community, without building it from scratch.</div>
+      </div>
+      <div class="quiz-q" data-answer="b">
+        <div class="qtext">4. What's the key structural difference between Uniswap and up. on Robinhood Chain?</div>
+        <div class="quiz-opt" data-choice="a">Uniswap only works with stablecoins; up. only works with Stock Tokens</div>
+        <div class="quiz-opt" data-choice="b">Uniswap offers passive liquidity pools; up. lets holders vote on where rewards go via locked veUP</div>
+        <div class="quiz-opt" data-choice="c">They are the same protocol under two different names</div>
+        <div class="quiz-feedback">Correct answer: up. is a ve(3,3) system — locking UP into veUP gives holders a direct vote over which pools get emissions and fee share.</div>
+      </div>
+    </div>
+    <div class="quiz-score" id="quizScore">0 of 4 answered correctly</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">Chapter Close</div>
+    <h2>Where we're headed next</h2>
+    <div class="recap-box">
+      <div class="tag">You now know</div>
+      <ul>
+        <li>The main categories of DeFi activity on Robinhood Chain — spot liquidity (Uniswap), native vote-directed liquidity (up.), and predictions/perps (Meridian)</li>
+        <li>The Index's core mechanic in full: a 3% trade tax converted hourly into Stock Tokens for holders</li>
+        <li>That rwa.wtf is The Index's own trading venue, with 75% of its fees feeding that same mechanic</li>
+        <li>How pons-launched tokens plug into the identical mechanic through the Indices treasury feature</li>
+        <li>The specific risks that come with an early-stage, leveraged, and interconnected DeFi sector</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <div class="tag">Coming up</div>
+      <p>We've covered the chain, the wallet, the assets, and now the DeFi layer built around them. Chapter 5 closes out the course.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="nav">
+  <div class="wrap">
+    <div class="next-up">
+      <div>
+        <div class="l1">Up Next — Chapter 5</div>
+        <div class="l2">Course Wrap-Up</div>
+      </div>
+      <div class="badge">CH. 04 COMPLETE</div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<div class="chapter-page" id="chapter-5">
+<div class="recap">
+  <div class="wrap">
+    <div class="tag">Recap</div>
+    <p>Chapter 4: Robinhood Chain's DeFi sector is one connected system — The Index, rwa.wtf, and pons all feed the same engine.</p>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">Chapter Five · Course Close</div>
+  <h1>Get There Before Everyone Else Does</h1>
+  <p class="sub">Every piece of technology that ever changed how wealth got built had a window where a small number of people understood it before it was obvious. You just spent four chapters inside that window.</p>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">01 — The Pattern Repeats</div>
+    <h2>Being early is not a new idea</h2>
+    <p class="lead">This isn't a crypto-specific phenomenon. It's the same story every time a financial technology shifts — the people who understand it before it's mainstream get first access to the upside, and everyone else gets access once the upside has largely been priced in.</p>
+    <div class="curve">
+      <div class="curve-row">
+        <div class="era mono">1990s</div>
+        <div class="desc">Online brokerage accounts replace phone-in stockbrokers. Early adopters trade at a fraction of the old cost while most investors are still calling a broker.</div>
+        <div class="who mono">Early: a few %</div>
+      </div>
+      <div class="curve-row">
+        <div class="era mono">2010s</div>
+        <div class="desc">Bitcoin and early crypto exchanges launch. People who understood self-custody and onchain assets years before the 2021 boom captured gains most of the public arrived too late for.</div>
+        <div class="who mono">Early: a few %</div>
+      </div>
+      <div class="curve-row">
+        <div class="era mono">2026</div>
+        <div class="desc">Robinhood Chain, permissionless RWAs, and DeFi built directly around tokenized stocks. Wallet setup, 24/7 markets, and stock-dividend mechanics are still unfamiliar to almost everyone outside this course.</div>
+        <div class="who mono">You: right now</div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="tag">The actual advantage</div>
+      <p>It was never about predicting the future perfectly. It's about being fluent in a system before most people even know it exists — so when it does go mainstream, you're not starting from zero.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">02 — Where You Stand Now</div>
+    <h2>What you know that most people don't</h2>
+    <p>Walk through what the last four chapters actually gave you — not in the abstract, but as things most people around you genuinely have no working knowledge of yet.</p>
+    <div class="know-grid">
+      <div class="know-card">
+        <div class="ch mono">Chapter 1</div>
+        <h3>The chain itself</h3>
+        <p>You understand why Robinhood built on EVM and Arbitrum, and what "24/7, permissionless" actually means versus a traditional brokerage app.</p>
+      </div>
+      <div class="know-card">
+        <div class="ch mono">Chapter 2</div>
+        <h3>Self-custody</h3>
+        <p>You can set up a Rabby wallet and move between it and Robinhood's own wallet — most people never take this step at all.</p>
+      </div>
+      <div class="know-card">
+        <div class="ch mono">Chapter 3</div>
+        <h3>What you're actually buying</h3>
+        <p>You know the real mechanics of Stock Tokens — what backs them, what rights you don't get, and where they trade — instead of a vague sense that "crypto stocks" exist.</p>
+      </div>
+      <div class="know-card">
+        <div class="ch mono">Chapter 4</div>
+        <h3>How the ecosystem connects</h3>
+        <p>You can see past the surface-level app list to how The Index, rwa.wtf, and pons actually function as one system — a level of understanding most participants in this space don't have.</p>
+      </div>
+    </div>
+    <p style="margin-top:8px;">That's the real front-running advantage: not a secret trade, but a working mental model of an entire new financial system before it's common knowledge.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">03 — Say It Straight</div>
+    <h2>Being early cuts both ways</h2>
+    <p>An honest course doesn't let the excitement of being first hide the parts that are still genuinely uncertain. You covered these in Chapter 4's risk module — they're worth repeating here as you head out on your own.</p>
+    <div class="caveat-list">
+      <div class="caveat-item">
+        <div class="k mono">UNPROVEN</div>
+        <p>Every project in this guide is weeks old. Early access to a new system also means early exposure to a system that hasn't been tested by time.</p>
+      </div>
+      <div class="caveat-item">
+        <div class="k mono">VOLATILE</div>
+        <p>Leverage, thin liquidity, and de-peg risk are all real. Being early to understand something is not the same as being immune to losing money in it.</p>
+      </div>
+      <div class="caveat-item">
+        <div class="k mono">EVOLVING</div>
+        <p>Distribution cadences change, products launch and rebrand (Ethereal became Meridian), and regulation is still being written. What you learned in this guide is accurate today — revisit it, because this space moves fast.</p>
+      </div>
+    </div>
+    <div class="callout warn">
+      <div class="tag">The honest version of "front-running"</div>
+      <p>You're not ahead because you found a shortcut. You're ahead because you did the work to understand a real, still-forming system before most people bothered to. That knowledge is the edge — not a guarantee.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="kicker">Course Complete</div>
+    <h2>You finished the study guide</h2>
+    <div class="completion">
+      <div class="tag">Block Wall Street</div>
+      <h2>Robinhood Chain</h2>
+      <p>Five chapters, from your first wallet to a full map of the DeFi sector built on top of Robinhood Chain's tokenized stocks.</p>
+      <div class="modules">
+        <div class="mod-pill done">Ch. 1 — The Chain</div>
+        <div class="mod-pill done">Ch. 2 — The Wallet</div>
+        <div class="mod-pill done">Ch. 3 — RWAs</div>
+        <div class="mod-pill done">Ch. 4 — DeFi</div>
+        <div class="mod-pill done">Ch. 5 — The Edge</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="nav">
+  <div class="wrap">
+    <p>This study guide is the foundation. The full course goes deeper on execution, strategy, and hands-on practice.</p>
+    <div class="signoff">BLOCK WALL STREET</div>
+  </div>
+</footer>
+</div>
+
+<div class="jump-nav">
+  <button class="jump-btn" id="prevBtn">← Prev</button>
+  <button class="jump-btn" id="nextBtn">Next Chapter →</button>
+</div>
+
+<script>
+// ===== Chapter 1 script =====
+
+  function updateBoard(){
+    const now = new Date();
+    // Approximate ET check using UTC offset (ET is UTC-4 in summer/DST, UTC-5 otherwise; using -4 as Aug 2026 is DST)
+    const etOffsetHours = -4;
+    const etTime = new Date(now.getTime() + etOffsetHours*3600*1000);
+    const day = etTime.getUTCDay(); // 0 Sun - 6 Sat
+    const hours = etTime.getUTCHours();
+    const mins = etTime.getUTCMinutes();
+    const minutesNow = hours*60+mins;
+    const marketOpenMin = 9*60+30;
+    const marketCloseMin = 16*60;
+    const isWeekday = day >=1 && day <=5;
+    const isOpen = isWeekday && minutesNow >= marketOpenMin && minutesNow < marketCloseMin;
+
+    const statusEl = document.getElementById('tradStatus');
+    const footEl = document.getElementById('boardFoot');
+    const hh = String(hours).padStart(2,'0');
+    const mm = String(mins).padStart(2,'0');
+
+    if(isOpen){
+      statusEl.textContent = 'OPEN';
+      statusEl.className = 'board-status status-open';
+    } else {
+      statusEl.textContent = 'CLOSED';
+      statusEl.className = 'board-status status-closed';
+    }
+    footEl.textContent = 'Live check · ' + hh + ':' + mm + ' ET · Robinhood Chain never sleeps, this row does.';
+  }
+  updateBoard();
+  setInterval(updateBoard, 30000);
+
+
+// ===== Chapter 2 script =====
+
+  function updateMoment(){
+    const now = new Date();
+    const etOffsetHours = -4;
+    const etTime = new Date(now.getTime() + etOffsetHours*3600*1000);
+    const day = etTime.getUTCDay();
+    const hours = etTime.getUTCHours();
+    const mins = etTime.getUTCMinutes();
+    const minutesNow = hours*60+mins;
+    const marketOpenMin = 9*60+30;
+    const marketCloseMin = 16*60;
+    const isWeekday = day >=1 && day <=5;
+    const isOpen = isWeekday && minutesNow >= marketOpenMin && minutesNow < marketCloseMin;
+
+    const hh = String(hours).padStart(2,'0');
+    const mm = String(mins).padStart(2,'0');
+    document.getElementById('momentTime').textContent = hh+':'+mm+' ET';
+    document.getElementById('tradState').textContent = isOpen ? 'Open' : 'Closed';
+    document.getElementById('tradState').style.color = isOpen ? '#3FBF7F' : '#C9564A';
+  }
+  updateMoment();
+  setInterval(updateMoment, 30000);
+
+
+// ===== Chapter 4 script =====
+
+  const volSlider = document.getElementById('volSlider');
+  const feeSlider = document.getElementById('feeSlider');
+  const shareSlider = document.getElementById('shareSlider');
+  const volVal = document.getElementById('volVal');
+  const feeVal = document.getElementById('feeVal');
+  const shareVal = document.getElementById('shareVal');
+  const outFees = document.getElementById('outFees');
+  const outStock = document.getElementById('outStock');
+  const outLiq = document.getElementById('outLiq');
+  const outYours = document.getElementById('outYours');
+
+  function fmt(n){
+    return '$' + n.toLocaleString(undefined, {maximumFractionDigits: n < 10 ? 2 : 0});
+  }
+
+  function recalc(){
+    const vol = parseFloat(volSlider.value);
+    const feePct = parseFloat(feeSlider.value);
+    const sharePct = parseFloat(shareSlider.value);
+
+    volVal.textContent = '$' + vol.toLocaleString();
+    feeVal.textContent = feePct.toFixed(2) + '%';
+    shareVal.textContent = sharePct.toFixed(3) + '%';
+
+    const totalFees = vol * (feePct/100);
+    const toStock = totalFees * 0.75;
+    const toLiq = totalFees * 0.25;
+    const yours = toStock * (sharePct/100);
+
+    outFees.textContent = fmt(totalFees);
+    outStock.textContent = fmt(toStock);
+    outLiq.textContent = fmt(toLiq);
+    outYours.textContent = fmt(yours);
+  }
+  [volSlider, feeSlider, shareSlider].forEach(el => el.addEventListener('input', recalc));
+  recalc();
+
+  let correctCount = 0;
+  const answered = new Set();
+  document.querySelectorAll('.quiz-q').forEach((q, idx) => {
+    const correct = q.getAttribute('data-answer');
+    const feedback = q.querySelector('.quiz-feedback');
+    q.querySelectorAll('.quiz-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if(answered.has(idx)) return;
+        answered.add(idx);
+        const choice = opt.getAttribute('data-choice');
+        q.querySelectorAll('.quiz-opt').forEach(o => {
+          if(o.getAttribute('data-choice') === correct) o.classList.add('correct');
+          else if(o === opt) o.classList.add('incorrect');
+        });
+        if(choice === correct) correctCount++;
+        feedback.classList.add('show');
+        document.getElementById('quizScore').textContent = correctCount + ' of 4 answered correctly';
+      });
+    });
+  });
+
+
+
+  // ===== Chapter navigation =====
+  const totalChapters = 5;
+  let currentChapter = 1;
+
+  function showChapter(n){
+    for(let i=1;i<=totalChapters;i++){
+      const page = document.getElementById('chapter-' + i);
+      const btn = document.getElementById('chnav-btn-' + i);
+      if(i === n){
+        page.classList.add('active');
+        btn.classList.add('active');
+      } else {
+        page.classList.remove('active');
+        btn.classList.remove('active');
+      }
+    }
+    currentChapter = n;
+    document.getElementById('progressFill').style.width = (n/totalChapters*100) + '%';
+    document.getElementById('prevBtn').disabled = (n === 1);
+    document.getElementById('nextBtn').disabled = (n === totalChapters);
+    document.getElementById('nextBtn').textContent = (n === totalChapters) ? 'Finished ✓' : 'Next Chapter →';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  document.querySelectorAll('.chnav-btn').forEach(btn => {
+    btn.addEventListener('click', () => showChapter(parseInt(btn.getAttribute('data-ch'))));
+  });
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentChapter > 1) showChapter(currentChapter - 1);
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if(currentChapter < totalChapters) showChapter(currentChapter + 1);
+  });
+
+  // also intercept any in-page "next chapter" footer cards from the original chapters
+  document.querySelectorAll('.next-up').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      if(currentChapter < totalChapters) showChapter(currentChapter + 1);
+    });
+  });
+
+  showChapter(1);
+
+</script>
+</body>
+</html>
